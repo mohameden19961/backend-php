@@ -3,11 +3,11 @@
 $host = getenv('MYSQLHOST');
 $user = getenv('MYSQLUSER');
 $pass = getenv('MYSQLPASSWORD');
-$db   = getenv('MYSQLDATABASE'); // Récupère 'railway' configuré ici
+$db   = getenv('MYSQLDATABASE'); // Cette variable contient 'railway'
 $port = getenv('MYSQLPORT');
 
 try {
-    // AJOUT DE dbname=$db DANS LA CHAÎNE CI-DESSOUS
+    // IL EST CRUCIAL D'AJOUTER 'dbname=$db' ICI :
     $dsn = "mysql:host=$host;port=$port;dbname=$db;charset=utf8mb4";
     $pdo = new PDO($dsn, $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
