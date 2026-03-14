@@ -3,7 +3,8 @@
 $host = getenv('MYSQLHOST');
 $user = getenv('MYSQLUSER');
 $pass = getenv('MYSQLPASSWORD');
-$db   = getenv('MYSQLDATABASE'); // Cette variable contient 'railway'
+$db = "railway"; // Cette variable contient 'railway'
+
 $port = getenv('MYSQLPORT');
 
 try {
