@@ -1,19 +1,23 @@
 <?php
-header("Content-Type: application/json");
-require "db.php";
+// 1. Autoriser le Frontend (Next.js) à lire ces données (CORS)
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
 
-$conn->query("CREATE TABLE IF NOT EXISTS visits (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)");
+// 2. Inclure la connexion à la base
+require_once 'db.php';
 
-$conn->query("INSERT INTO visits () VALUES ()");
+try {
+    // 3. Récupérer les utilisateurs
+    $query = "SELECT id, name, email FROM users";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute();
+    
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$result = $conn->query("SELECT COUNT(*) as total FROM visits");
-$row = $result->fetch_assoc();
+    // 4. Envoyer les données au format JSON
+    echo json_encode($users);
 
-echo json_encode([
-  "message" => "Connected to MySQL ✅",
-  "visits" => $row["total"]
-]);
-?>
+} catch (PDOException $e) {
+    http_response_code(500);
+    echo json_encode(["error" => "Erreur de base de données : " . $e->getMessage()]);
+}
